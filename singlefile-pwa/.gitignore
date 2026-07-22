@@ -1,3 +1,7 @@
 node_modules/
 package-lock.json
 src/single-file-core/
+# Local dev server
+server.crt
+server.key
+server.py

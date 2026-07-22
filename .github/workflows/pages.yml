@@ -31,15 +31,16 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
-          cache-dependency-path: singlefile-pwa/package-lock.json
+          node-version: 22
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build core bundle
         run: node build-bundle.js
+
+      - name: Clean up build artifacts
+        run: rm -rf node_modules src
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
