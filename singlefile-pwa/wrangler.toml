@@ -1,0 +1,8 @@
+name = "al-collab"
+compatibility_date = "2025-07-21"
+
+[pages]
+build_output_dir = "singlefile-pwa"
+
+[env.production]
+pages_build_output_dir = "singlefile-pwa"
