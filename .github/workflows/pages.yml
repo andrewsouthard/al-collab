@@ -21,25 +21,12 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: singlefile-pwa
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build core bundle
-        run: node build-bundle.js
-
-      - name: Clean up build artifacts
+      - name: Clean up build artifacts before upload
+        working-directory: singlefile-pwa
         run: rm -rf node_modules src
 
       - name: Upload Pages artifact
