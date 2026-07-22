@@ -1,0 +1,27 @@
+{
+  "name": "SingleFile PWA",
+  "short_name": "SingleFile",
+  "description": "Save web pages as single HTML files using SingleFile core, entirely in your browser",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "scope": "/",
+  "serviceworker": {
+    "src": "/sw.js",
+    "scope": "/"
+  }
+}
