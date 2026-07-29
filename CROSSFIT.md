@@ -1,9 +1,69 @@
-# CrossFit WODs — Past 60 Days
+# CrossFit WODs — Full Year
 
-**May 29 – July 29, 2026**
+**July 30, 2025 – July 29, 2026**
+
+*Note: This file is being built. Data for Aug 2025 – Mar 2026 is being fetched by background agents and will be appended shortly.*
 
 | Day | Date | Workout | Type | Description |
 |-----|------|---------|------|-------------|
+| Wed | Apr 1 | Push Press | Strength | 3-2-2-1-1-1 push press, build to heavy single |
+| Thu | Apr 2 | Rest Day | Rest | — |
+| Fri | Apr 3 | Box Jump-Over + Hang Power Clean | Sprint | 8 rounds: 5 box jump-overs (24/30" box), 5 hang power cleans (♀ 155 / ♂ 225 lb) |
+| Sat | Apr 4 | L Pull-Up + Thruster | Grind | Descending: 21/18/15/12/9 L pull-ups + 42/36/30/24/18 thrusters (♀ 35 / ♂ 45 lb) |
+| Sun | Apr 5 | Rest Day | Rest | — |
+| Mon | Apr 6 | Run + Pull-Up + Deadlift | Chipper | 800-m run, 80 pull-ups, 80 deadlifts (♀ 95 / ♂ 135 lb), 800-m run |
+| Tue | Apr 7 | Wall Walk + Burpee + DU | AMRAP | 15-min AMRAP: 3 wall walks, 15 burpees, 60 double-unders |
+| Wed | Apr 8 | Front Squat | Strength | 3-3-3-3-3, build to heavy |
+| Thu | Apr 9 | Rest Day | Rest | — |
+| Fri | Apr 10 | **Kelly** | Benchmark | 5 rounds: 400-m run, 30 box jumps, 30 wall-ball shots (14/20 lb MB, 20/24" box) |
+| Sat | Apr 11 | Row + Muscle-Up | Couplet | 40-cal row, 15 MU → 40-cal row, 10 MU → 40-cal row, 5 MU |
+| Sun | Apr 12 | Rest Day | Rest | — |
+| Mon | Apr 13 | Hang Squat Clean | Strength | 2-2-2-2-2-2-2, build to heavy double |
+| Tue | Apr 14 | Rope Climb + GHD Sit-Up + DU | Triplet | 10 rounds: 2 rope climbs (15 ft), 10 GHD sit-ups, 25 DU |
+| Wed | Apr 15 | Power Snatch + Bike | Sprint | 15 power snatches (♀ 75 / ♂ 115 lb), 24/30-cal bike, 15 power snatches |
+| Thu | Apr 16 | Rest Day | Rest | — |
+| Fri | Apr 17 | **Drew** | Hero | For time: Kraus → Scott → Good → Cully (run + PU + HR push-ups + DL) + 269 box step-ups (vested) |
+| Sat | Apr 18 | KB Front-Rack Carry + Box Jump-Over | Interval | 5 rounds: 75-ft KB carry, 15 box jump-overs, 75-ft KB carry; rest 2 min |
+| Sun | Apr 19 | Rest Day | Rest | — |
+| Mon | Apr 20 | 2,000-m Row | TT | For time: 2K row time trial |
+| Tue | Apr 21 | 100-m Sprint + C&J | Intervals | 8 rounds on 1-min clock: 100-m sprint, max clean & jerks (♀ 75 / ♂ 115 lb); rest 3 min |
+| Wed | Apr 22 | OHS + Deficit Push-Up | Strength + AMRAP | OHS 8-8-8-8 (♀ 55 / ♂ 75 lb), then 6-min AMRAP: 40 OHS + 30 deficit push-ups |
+| Thu | Apr 23 | Rest Day | Rest | — |
+| Fri | Apr 24 | DU + DB Triplet | Chipper | 100 DU, 60 DB deadlifts → 100 DU, 45 DB hang power cleans → 100 DU, 30 DB push jerks (♀ 50 / ♂ 70 lb DB) |
+| Sat | Apr 25 | Bear Crawl + Run + Lunge | Grunt | 400-m bear crawl, 400-m run, 400-m walking lunges, 400-m run |
+| Sun | Apr 26 | Rest Day | Rest | — |
+| Mon | Apr 27 | Deadlift | Strength | 10-10-7-7-3-3-3, build to heavy triple |
+| Tue | Apr 28 | Run + Handstand Walk + Box Step-Up | AMRAP | 20-min AMRAP: 400-m run, 100-ft handstand walk, 50 box step-ups (20/24" box) |
+| Wed | Apr 29 | **Andi** | Benchmark | For time: 100 hang power snatches, 100 push presses, 100 SDHP, 100 front squats (♀ 45 / ♂ 65 lb) |
+| Thu | Apr 30 | Rest Day | Rest | — |
+| Fri | May 1 | **Nasty Girls** | Benchmark | 3 rounds: 50 air squats, 7 muscle-ups, 10 hang power cleans (♀ 95 / ♂ 135 lb) |
+| Sat | May 2 | Push Jerk + DU | Descending | 10/8/6/4/2 push jerks (♀ 125 / ♂ 185 lb) + 100/80/60/40/20 DU |
+| Sun | May 3 | Rest Day | Rest | — |
+| Mon | May 4 | Wall-Ball + Sit-Up + Bike | Chipper | 75-50-25 wall-ball shots, AbMat sit-ups, bike cals (♀ 14 lb MB, ♂ 20 lb MB) |
+| Tue | May 5 | Box Jump + Bench Press | Couplet | 5 rounds: 15 box jumps (24/30" box), 15 bench presses (♀ 95 / ♂ 135 lb) |
+| Wed | May 6 | Run + Deadlift | Grind | 2 rounds: 1,600-m run, 15 deadlifts (♀ 225 / ♂ 315 lb) |
+| Thu | May 7 | Rest Day | Rest | — |
+| Fri | May 8 | Snatch Ladder | Strength + MetCon | 4-min max snatches (♀ 105 / ♂ 155 lb), rest 4 min; 3-min max (♀ 125 / ♂ 185 lb), rest 3 min; 2-min max (♀ 145 / ♂ 205 lb) |
+| Sat | May 9 | **Cindy** | Benchmark | 20-min AMRAP: 5 pull-ups, 10 push-ups, 15 air squats |
+| Sun | May 10 | Rest Day | Rest | — |
+| Mon | May 11 | Power Clean + Run | Couplet | 30 power cleans (♀ 105 / ♂ 155 lb), 800-m run, 30 power cleans |
+| Tue | May 12 | Back Squat | Strength | 5-5-3-3-1-1-1, build to heavy single |
+| Wed | May 13 | Ring Dip + KB TGU + Pull-Up | Triplet | 3 rounds: 25 ring dips, 10 KB Turkish get-ups (♀ 53 / ♂ 70 lb), 25 pull-ups |
+| Thu | May 14 | Rest Day | Rest | — |
+| Fri | May 15 | Bike + SDHP + K2E | Triplet | 5 rounds: 22/30-cal bike, 20 SDHP (♀ 65 / ♂ 95 lb), 15 knees-to-elbows |
+| Sat | May 16 | Rope Climb + Thruster | Interval | 5 cycles: 3-min AMRAP of 1 rope climb (15 ft) + 9 thrusters (♀ 65 / ♂ 95 lb); rest 3 min |
+| Sun | May 17 | Rest Day | Rest | — |
+| Mon | May 18 | DL + PU + Wall-Ball + Box Jump + Row | Chipper | 10 DL → 20 PU → 30 wall-ball → 40 box jumps → 1,000-m row → mirror |
+| Tue | May 19 | Single-Leg Squat + Bike | Intervals | 6 rounds on 1:30 clock: 20 alt single-leg squats, max-cal bike; rest 1:30 |
+| Wed | May 20 | KB Swing + Burpee to Target | Couplet | 6 rounds: 24 KB swings (♀ 35 / ♂ 53 lb), 12 burpees to 6" target |
+| Thu | May 21 | Rest Day | Rest | — |
+| Fri | May 22 | Shoulder Press Complex + Test | Strength | 5 sets: 5 SP + 5 PP + 5 PJ (no rest); then 1-min max push presses at 60% |
+| Sat | May 23 | DB Suitcase Carry + Shuttle + Snatch | AMRAP | 15-min AMRAP: 100-m DB carry, 10 shuttle runs, 30 alt DB hang snatches (♀ 35 / ♂ 50 lb) |
+| Sun | May 24 | Rest Day | Rest | — |
+| Mon | May 25 | **Murph** | Hero | 1-mi run, 100 pull-ups, 200 push-ups, 300 air squats, 1-mi run (vested) |
+| Tue | May 26 | **Adrian** | Hero | 7 rounds: 3 forward rolls, 5 wall walks, 7 T2B, 9 box jumps (24/30" box) |
+| Wed | May 27 | **Sham** | Hero | 7 rounds: 11 bodyweight deadlifts, 100-m sprint |
+| Thu | May 28 | Rest Day | Rest | — |
 | Fri | May 29 | **Brian** | Hero | 3 rounds: 5 rope climbs (15 ft), 25 back squats (♀ 125 / ♂ 185 lb) |
 | Sat | May 30 | **Laura** | Hero (Partner) | 21-min AMRAP: 30-cal row, 20 burpees over rower, 10 power cleans (♀ 105 / ♂ 155 lb) |
 | Sun | May 31 | Rest Day | Rest | — |
@@ -66,6 +126,19 @@
 | Mon | Jul 27 | 2 x 1-Mile Run | Test | 2 rounds: 1,600-m run; rest exactly your time between rounds |
 | Tue | Jul 28 | **Linda** | Benchmark | 10–9–8–7–6–5–4–3–2–1: 1½-BW DL, BW bench press, ¾-BW squat cleans |
 | Wed | Jul 29 | Row + DB Snatch + Burpee | AMRAP | 5 rounds: 3-min AMRAP of 15/20-cal row, 20 alt DB hang snatches (♀ 35 / ♂ 50 lb), max DB-facing burpees; rest 1 min |
+
+**Missing months (being fetched by background agents):**
+- Jul 30-31, 2025
+- August 2025
+- September 2025
+- October 2025
+- November 2025
+- December 2025
+- January 2026
+- February 2026
+- March 2026
+
+*These will be added to the table as soon as the data arrives.*
 
 **Key**
 - **Hero/Tribute** = Workout honoring fallen service members or first responders
