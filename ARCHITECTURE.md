@@ -9,30 +9,53 @@ The existing [PWA-based proof of concept](./singlefile-pwa/) serializes pages in
 ## System Context
 
 ```
-┌─────────────────┐     POST /archive?url=…      ┌──────────────────────────────────┐
-│  Caller          │ ────────────────────────────► │  Cloudflare Worker               │
-│  (CLI, cron,     │                               │                                  │
-│   script, PWA)   │                               │  1. Validates URL                 │
-│                  │ ◄──────────────────────────── │  2. Launches Browser Run session  │
-│  Response:       │    200 OK + R2 key / direct   │  3. Returns self-contained HTML   │
-│  { key, url,     │          download             │     or stores to R2               │
-│    size, ... }   │                               └──────────┬───────────────────────┘
+┌─────────────────┐     POST /archive?url=…      ┌─────────────────────────────────────────┐
+│  Caller          │ ────────────────────────────► │  Cloudflare Worker                      │
+│  (CLI, cron,     │                               │                                         │
+│   script, PWA)   │                               │  1. Validates URL                       │
+│                  │ ◄──────────────────────────── │  2. Acquires browser slot from DO       │
+│  Response:       │    200 OK + R2 key / direct   │  3. Launches Browser Run session        │
+│  { key, url,     │          download             │  4. Serializes, stores to R2            │
+│    size, ... }   │                               │  5. Releases slot back to DO            │
+│                  │                               └──────────┬──────────────────────────────┘
+│                  │                                          │
+│                  │                                          │ RPC: borrowSession()
+│                  │                                          │      returnSession()
+│                  │                                          ▼
+│                  │                               ┌─────────────────────────────────────┐
+│                  │                               │  Durable Object                    │
+│                  │                               │  (browser-pool)                     │
+│                  │                               │                                     │
+│                  │                               │  State:                              │
+│                  │                               │    active: 0..3                      │
+│                  │                               │    queue: [] (waiting callers)       │
+│                  │                               │    dailyBudget: ms used today        │
+│                  │                               │                                     │
+│                  │                               │  borrowSession():                     │
+│                  │                               │    if active < 3 → active++ → OK     │
+│                  │                               │    else → push caller to queue       │
+│                  │                               │           → await (holds RPC open)   │
+│                  │                               │                                     │
+│                  │                               │  returnSession():                     │
+│                  │                               │    active--                          │
+│                  │                               │    if queue.length > 0 → resolve next │
+│                  │                               └──────────┬──────────────────────────┘
 │                  │                                          │
 │                  │                                          │ puppeteer.connect()
 │                  │                                          ▼
-│                  │                               ┌─────────────────────────┐
-│                  │                               │  Cloudflare Browser Run  │
-│                  │                               │  (headless Chromium)     │
-│                  │                               │                         │
-│                  │                               │  ┌───────────────────┐  │
-│                  │                               │  │ page.goto(url)     │  │
-│                  │                               │  │ page.evaluate()    │  │
-│                  │                               │  │ ← serialization   │  │
-│                  │                               │  │   script returns   │  │
-│                  │                               │  │   self-contained   │  │
-│                  │                               │  │   HTML string      │  │
-│                  │                               │  └───────────────────┘  │
-│                  │                               └─────────────────────────┘
+│                  │                               ┌─────────────────────────────┐
+│                  │                               │  Cloudflare Browser Run      │
+│                  │                               │  (headless Chromium)         │
+│                  │                               │                              │
+│                  │                               │  ┌───────────────────────┐  │
+│                  │                               │  │ page.goto(url)         │  │
+│                  │                               │  │ page.evaluate()        │  │
+│                  │                               │  │ ← serialization       │  │
+│                  │                               │  │   script returns       │  │
+│                  │                               │  │   self-contained       │  │
+│                  │                               │  │   HTML string          │  │
+│                  │                               │  └───────────────────────┘  │
+│                  │                               └─────────────────────────────┘
 │                  │                                          │
 │                  │                                          │ result stored
 │                  │                                          ▼
@@ -68,13 +91,16 @@ Puppeteer via CDP lets us inject arbitrary JavaScript that walks the DOM, serial
 ## Free Plan Budget
 
 | Resource | Free Tier Limit | Per-Archive Budget | Notes |
-|---|---|---|---|
+|---|---|---|---|---|
 | **Browser Run time** | 10 min/day (~600s) | ~2-4s per page | ~150-300 archives/day free |
 | **Worker invocations** | 100k/day | 1 per archive | Trivially not the bottleneck |
 | **Worker CPU time** | 10ms/request | ~1-2ms | Light — just orchestration |
 | **R2 storage** | 10 GB | ~100-500 KB per file | ~20k-100k archives |
 | **R2 writes (Class A)** | 1M/month | 1 per archive | 150-300/day = ~5-9k/month |
 | **Concurrent browser sessions** | 3 | N/A | Max 3 concurrent archive requests |
+| **DO requests** | 100k/day | 2 per archive (borrow + return) | ~400/day, well within limit |
+| **DO duration** | 13,000 GB-s/day | ~0.001 GB-s per RPC | Negligible |
+| **DO rows written** | 100k/day | ~2 per archive (state updates) | Well within budget |
 
 **10 min/day is generous.** At 3s per page, you get 200 archives daily. That's 6,000/month, or 72,000/year — all free.
 
@@ -82,7 +108,7 @@ Puppeteer via CDP lets us inject arbitrary JavaScript that walks the DOM, serial
 
 ### 1. Worker (`src/worker.js`)
 
-The entry point. Thin orchestrator — validates input, opens a browser session, runs the serialization, stores the result.
+The entry point. Thin orchestrator — validates input, acquires a browser slot from the DO pool, runs CDP serialization, stores the result, then releases the slot.
 
 ```
 POST /archive?url=<encoded_url>
@@ -95,7 +121,7 @@ GET /<key>
   → 200 (text/html)  ← serves archived files from R2
 ```
 
-**No heavy processing.** The Worker's role is plumbing: parse request, launch browser, wait for result, store to R2, respond. Should stay well under the 10ms CPU limit.
+**No heavy processing.** The Worker's role is plumbing: parse request, RPC to DO, launch browser, wait for result, store to R2, respond. Should stay well under the 10ms CPU limit.
 
 ### 2. Browser Run Session (`@cloudflare/puppeteer`)
 
@@ -171,22 +197,83 @@ Key format: {timestamp_ms}__{sha1_prefix(8)}.html
 - 1M Class A writes/month (the archive operation)
 - 10M Class B reads/month (listing, serving)
 
-### 5. Optional: Durable Object for Rate Limiting
+### 5. Durable Object — Browser Pool Coordinator (`browser-pool`)
 
-A Durable Object can track daily browser time usage against the 10-min free limit, returning `429 Too Many Requests` before the account is over-billed. Not essential for light use, but recommended for unattended cron jobs.
+The DO is the linchpin that makes this work on the free plan's 3-concurrent-browser limit without returning errors to callers.
+
+**Why a DO and not a Queue:**
+
+| Dimension | Durable Object (chosen) | Cloudflare Queue |
+|---|---|---|
+| **Client UX** | HTTP connection stays open; caller gets the result directly | Returns a job ID; caller must poll or set up a webhook |
+| **Latency** | Request is held until a slot opens, then processed inline | Message is stored; consumer picks it up asynchronously |
+| **State needed** | Active counter + waiting queue + daily budget tracker | Messages have no shared state |
+| **DO requests (free)** | 100k/day — 2 RPCs per archive → ~400/day | 1M queue ops/month — also fine |
+| **Complexity** | One class, two RPC methods, SQLite-backed | Worker + queue + consumer + polling endpoint |
+
+The DO lets us **hold the HTTP connection open** while the caller waits for a browser slot. The caller gets the result in their original response — no polling, no webhook. A Queue would force every client into a two-round-trip pattern (submit job → poll for completion), which complicates CLI tools and scripts for minimal gain.
+
+**Class: `BrowserPoolDO`**
+
+```ts
+interface PoolState {
+  active: number        // 0..MAX_CONCURRENT (3)
+  queue: QueueEntry[]   // FIFO waiters
+  dailyBudgetMs: number // browser ms used today (resets via Alarm at 00:00 UTC)
+}
+
+interface QueueEntry {
+  // RPC resolver captured at enqueue time — resolved when a slot opens
+  resolve: (value: void) => void
+  rejectedAt: number    // timestamp for TTL enforcement
+}
+```
+
+**RPC methods:**
+
+| Method | Behaviour |
+|---|---|
+| `borrowSession()` | If `active < MAX_CONCURRENT`: increment, return immediately. Else: push caller to queue, **await** (holds RPC open via DO hibernation). When a slot frees up, the next waiter is resolved. |
+| `returnSession(sessionMs)` | Decrement `active`. Add `sessionMs` to `dailyBudgetMs`. If queue has waiters, resolve the next one. If daily budget exceeded, set alarm to re-enable at midnight. |
+| `getStatus()` | Returns `{ active, queued, dailyBudgetMs }` for health checks. |
+
+**DO Hibernation keeps it free.** When a waiter is queued, the DO can hibernate — it doesn't burn duration charges while waiting. The RPC stub on the Worker side holds the connection open and re-establishes when the DO wakes up to resolve it.
+
+**Budget enforcement.** The DO also tracks cumulative browser milliseconds per day. When `dailyBudgetMs >= 600_000` (10 min), subsequent `borrowSession()` calls immediately throw an error. An `Alarm` resets the counter at 00:00 UTC.
+
+**Wrangler config:**
+
+```toml
+[[durable_objects.bindings]]
+name = "BROWSER_POOL"
+class_name = "BrowserPoolDO"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["BrowserPoolDO"]
+```
 
 ## Data Flow (Happy Path)
 
 ```
-1. Caller → POST /archive?url=https://example.com
-2. Worker validates URL (scheme, reachable via HEAD)
-3. Worker launches Browser Run session via puppeteer.launch()
-4. page.goto(url, { waitUntil: 'networkidle0' })
-5. page.evaluate(serializePage) → self-contained HTML string
-6. browser.close()
-7. Worker computes key: `${Date.now()}__${sha1(url).slice(0,8)}.html`
-8. Worker writes to R2 bucket under that key
-9. Worker returns { key, url, size, timestamp }
+ 1. Caller → POST /archive?url=https://example.com
+ 2. Worker validates URL (scheme, reachable via HEAD)
+ 3. Worker calls env.BROWSER_POOL.borrowSession() via DO RPC
+    3a. If active < 3: DO increments, returns immediately
+    3b. If active ≥ 3: DO pushes caller to queue, RPC awaits
+        (DO hibernates; HTTP connection held open by Worker)
+    3c. When a slot opens, DO resolves the RPC, Worker proceeds
+ 4. Worker launches Browser Run session via puppeteer.launch()
+ 5. page.goto(url, { waitUntil: 'networkidle0' })
+ 6. page.evaluate(serializePage) → self-contained HTML string
+ 7. browser.close()
+ 8. Worker computes key: `${Date.now()}__${sha1(url).slice(0,8)}.html`
+ 9. Worker writes to R2 bucket under that key
+10. Worker calls env.BROWSER_POOL.returnSession(elapsedMs)
+    10a. DO decrements active counter
+    10b. DO adds elapsedMs to daily budget
+    10c. If queue has waiters, DO resolves the next one
+11. Worker returns { key, url, size, timestamp }
 ```
 
 ## Error Handling
@@ -197,8 +284,10 @@ A Durable Object can track daily browser time usage against the 10-min free limi
 | URL unreachable (timeout) | 502 with error detail |
 | Page requires auth | Attempt fetch; return 401 if blocked |
 | Browser session fails | Retry once; return 503 on second failure |
+| **All 3 browser slots busy + queue full** | Return 503 with `Retry-After` header (caller backs off) |
+| **DO unreachable** | Fall back to synchronous (no throttling); log warning |
+| **DO reports daily budget exceeded** | Return 429 with `Retry-After: seconds-until-midnight` |
 | R2 write fails | Return 500; caller should retry |
-| 10 min/day budget exceeded | Return 429 with `Retry-After` header |
 | Page too large (>25MB serialized) | Truncate with warning flag in response |
 
 ## Comparison: Worker+Browser Run vs PWA+SW Proxy
@@ -225,6 +314,8 @@ A Durable Object can track daily browser time usage against the 10-min free limi
 3. **Result size limits** — page.evaluate() returns the result as a serialized string. Worker memory is capped at 128MB (free) / 512MB (bundled). A heavily inlined page with many images could easily be 5-15MB. This should be fine, but worth monitoring.
 
 4. **Unicode/encoding** — R2 is binary-safe, so no issues there. The serialized HTML should declare `<meta charset="utf-8">`.
+
+5. **DO queue stability at low concurrency** — With only 3 concurrent slots, practical contention is low at ~200 pages/day. The queue mostly stays empty. But the DO pattern is essential for burst scenarios (e.g., a batch cron that fires 50 archives at once). Need to confirm DO RPC `await` across hibernation works reliably for multi-second waits.
 
 ## Future Iterations
 
