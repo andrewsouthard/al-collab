@@ -1,9 +1,40 @@
-# CrossFit WODs — Past 30 Days
+# CrossFit WODs — Past 60 Days
 
-**June 29 – July 29, 2026**
+**May 29 – July 29, 2026**
 
 | Day | Date | Workout | Type | Description |
 |-----|------|---------|------|-------------|
+| Fri | May 29 | **Brian** | Hero | 3 rounds: 5 rope climbs (15 ft), 25 back squats (♀ 125 / ♂ 185 lb) |
+| Sat | May 30 | **Laura** | Hero (Partner) | 21-min AMRAP: 30-cal row, 20 burpees over rower, 10 power cleans (♀ 105 / ♂ 155 lb) |
+| Sun | May 31 | Rest Day | Rest | — |
+| Mon | Jun 1 | Interval AMRAP | Interval | 4 rounds: 3-min AMRAP of 21 AbMat sit-ups, 15 box jump-overs, 9 squat cleans (♀ 95 / ♂ 135 lb), max T2B; rest 3 min |
+| Tue | Jun 2 | Run + Row Ladder | Monostructural | For time: 1,000-m run → 200-m row → 800-m run → 400-m row → 600-m run → 600-m row → 400-m run → 800-m row → 200-m run → 1,000-m row |
+| Wed | Jun 3 | Push Press + Strict Pull-Up | Strength + Ascending | Push press 3-3-3-3-3 (♀ 105 / ♂ 155 lb), then 7-min AMRAP: ascending strict pull-ups + push presses |
+| Thu | Jun 4 | Rest Day | Rest | — |
+| Fri | Jun 5 | Rope Climb + DB Chipper | Chipper | Descending: rope climbs, DB farmers carry shuttles, DB deadlifts (♀ 50 / ♂ 70 lb DB), bike cals |
+| Sat | Jun 6 | Front Squat Ladder | Ladder | 5 × 2:30 intervals: 20/16/12/8/4 front squats (ascending weight) + 12 burpees over bar each round |
+| Sun | Jun 7 | Rest Day | Rest | — |
+| Mon | Jun 8 | Bike Sprint + Burpee Box Get-Over | Max Effort | 1-min air bike max cals, rest 5 min, then 10-min AMRAP burpee box get-overs (48" box) |
+| Tue | Jun 9 | Fran Twist | Twist | On 18-min clock: 9-15-21 pull-ups + thrusters (♀ 65 / ♂ 95 lb), then build to heavy single thruster |
+| Wed | Jun 10 | 6 × 400-m Run | Intervals | 6 rounds of 400-m run, rest 90s between; score = total run time |
+| Thu | Jun 11 | Rest Day | Rest | — |
+| Fri | Jun 12 | **2012 Regionals Event 2** | Games | For time: 2,000-m row, 50 alt single-leg squats, 30 hang cleans (♀ 135 / ♂ 225 lb) |
+| Sat | Jun 13 | 100 OHS + EMOM DU | Grind | For time: 100 OHS (♀ 95 / ♂ 135 lb); every minute on the minute 15 double-unders |
+| Sun | Jun 14 | Rest Day | Rest | — |
+| Mon | Jun 15 | Bench Press + C2B Pull-Up | Push-Pull | 10-9-8-7-6-5-4-3-2-1 bench press (bodyweight) + chest-to-bar pull-ups |
+| Tue | Jun 16 | Run + Squat + GHD Sit-Up | Grind | 5 rounds: 800-m run, 50 air squats, 30 GHD sit-ups |
+| Wed | Jun 17 | **Gwen** | Benchmark | 15-12-9 clean and jerks for load (touch-and-go, no time limit) |
+| Thu | Jun 18 | Rest Day | Rest | — |
+| Fri | Jun 19 | Back Squat | Strength | 5-5-5-5-5, build to heavy |
+| Sat | Jun 20 | Sled Drag + Front-Rack Carry | Grind | 1,600-m sled drag with barbell front-rack carry (♀ 95 / ♂ 135 lb); every stop = 15 bent-over rows |
+| Sun | Jun 21 | Rest Day | Rest | — |
+| Mon | Jun 22 | Gymnastics Intervals | Skill | 20-min clock: 4 × 5-min windows of 200-m run + max reps (freestanding shoulder taps, skin-the-cats, L pull-ups, deficit push-ups) |
+| Tue | Jun 23 | Deadlift | Strength | 5-5-5-5-5, build to heavy |
+| Wed | Jun 24 | Front-Rack Lunge + K2E + Bike | Descending | 30-20-10 front-rack reverse lunges (♀ 95 / ♂ 135 lb), knees-to-elbows, bike cals |
+| Thu | Jun 25 | Rest Day | Rest | — |
+| Fri | Jun 26 | Hang Squat Clean + Rope Climb | Descending | 15/12/9 hang squat cleans (♀ 105 / ♂ 155 lb) + rope climbs |
+| Sat | Jun 27 | 5,000-m Run | Benchmark | For time: 5K run |
+| Sun | Jun 28 | Rest Day | Rest | — |
 | Mon | Jun 29 | **Omar** | Hero | For time: 10–15–20–30–35 thrusters + bar-facing burpees (♀ 65 / ♂ 95 lb) |
 | Tue | Jun 30 | **Michael** | Hero | 3 rounds: 800-m run, 50 GHD back extensions, 50 sit-ups |
 | Wed | Jul 1 | **Jennifer** | Hero | 26-min AMRAP: 10 pull-ups, 15 KB swings (♀ 35 / ♂ 53 lb), 20 box jumps |
